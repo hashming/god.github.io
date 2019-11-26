@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://hashming.github.io</id>
     <title>阿鲤梨</title>
-    <updated>2019-11-26T09:29:04.906Z</updated>
+    <updated>2019-11-26T09:39:37.753Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://hashming.github.io"/>
     <link rel="self" href="https://hashming.github.io/atom.xml"/>
@@ -10,6 +10,23 @@
     <logo>https://hashming.github.io/images/avatar.png</logo>
     <icon>https://hashming.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 阿鲤梨</rights>
+    <entry>
+        <title type="html"><![CDATA[plan(2019.11.26)]]></title>
+        <id>https://hashming.github.io/post/plan20191126</id>
+        <link href="https://hashming.github.io/post/plan20191126">
+        </link>
+        <updated>2019-11-26T09:34:05.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>寄东西</li>
+<li>重新写简历</li>
+<li>锻炼</li>
+<li>吃早饭</li>
+<li>不能犯懒</li>
+<li>想想之后自己要从事哪一方面的工作😉</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://hashming.github.io/post-images/1574761163846.jpg" alt=""></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[你好 Gridea]]></title>
         <id>https://hashming.github.io/post/hello-gridea</id>
