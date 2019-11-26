@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://hashming.github.io</id>
     <title>阿鲤梨</title>
-    <updated>2019-11-26T09:20:45.054Z</updated>
+    <updated>2019-11-26T09:23:20.499Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://hashming.github.io"/>
     <link rel="self" href="https://hashming.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>Onepice</subtitle>
     <logo>https://hashming.github.io/images/avatar.png</logo>
     <icon>https://hashming.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 阿鲤梨</rights>
