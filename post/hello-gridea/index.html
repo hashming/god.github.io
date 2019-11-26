@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>你好 Gridea | 阿鲤梨</title>
 <meta name="description" content="Onepice" />
-<link rel="shortcut icon" href="https://hashming.github.io/favicon.ico?v=1574761168095">
+<link rel="shortcut icon" href="https://hashming.github.io/favicon.ico?v=1574762359865">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://hashming.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://hashming.github.io">
-  <img class="avatar" src="https://hashming.github.io/images/avatar.png?v=1574761168095" alt="">
+  <img class="avatar" src="https://hashming.github.io/images/avatar.png?v=1574762359865" alt="">
   </a>
   <h1 class="site-title">
     阿鲤梨
@@ -138,6 +138,32 @@
 
         
 
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '6171618e488c4622fa3c',
+    clientSecret: '0a2e1332ffba9746b8f128c9faecb49862d09086',
+    repo: 'hashming.github.io',
+    owner: 'hashming',
+    admin: ['hashming'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
         
 
         <div class="site-footer">
