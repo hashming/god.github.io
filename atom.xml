@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://hashming.github.io</id>
     <title>阿鲤梨</title>
-    <updated>2019-12-17T08:20:04.684Z</updated>
+    <updated>2019-12-23T15:10:26.234Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://hashming.github.io"/>
     <link rel="self" href="https://hashming.github.io/atom.xml"/>
@@ -10,6 +10,358 @@
     <logo>https://hashming.github.io/images/avatar.png</logo>
     <icon>https://hashming.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 阿鲤梨</rights>
+    <entry>
+        <title type="html"><![CDATA[记一次g企业面试]]></title>
+        <id>https://hashming.github.io/post/ji-yi-ci-g-qi-ye-mian-shi</id>
+        <link href="https://hashming.github.io/post/ji-yi-ci-g-qi-ye-mian-shi">
+        </link>
+        <updated>2019-12-23T15:09:38.000Z</updated>
+        <content type="html"><![CDATA[<p>Thread类的方法：start方法 、 run方法 、 getPriority方法<br>
+其中的getPriority方法可以用来取得进程、进程组和用户的进程执行优先权。</p>
+<p>java thread start() 和 run() 区别：</p>
+<ol>
+<li>
+<p>start()<br>
+public static void main(String[] args) {<br>
+// TODO 自动生成的方法存根<br>
+Thread t = new Thread() {<br>
+public void run() {<br>
+pong();<br>
+}<br>
+};</p>
+<pre><code> t.start();
+ System.out.print(&quot;ping&quot;);
+</code></pre>
+<p>}<br>
+　　static void pong() {<br>
+　　　　System.out.print(&quot;pong&quot;);</p>
+<p>}</p>
+</li>
+</ol>
+<p>}</p>
+<p>执行的结果：pingpong</p>
+<p>2.run()<br>
+public static void main(String[] args) {<br>
+// TODO 自动生成的方法存根<br>
+Thread t = new Thread() {<br>
+public void run() {<br>
+pong();<br>
+}<br>
+};</p>
+<pre><code>    t.run();
+    System.out.print(&quot;ping&quot;);
+
+}
+</code></pre>
+<p>static void pong() {<br>
+　　　　System.out.print(&quot;pong&quot;);</p>
+<pre><code>}
+</code></pre>
+<p>}</p>
+<p>执行的结果：pongping</p>
+<p>原因：<br>
+1） start：<br>
+　　用start方法来启动线程，真正实现了多线程运行，这时无需等待run方法体代码执行完毕而直接继续执行下面的代码。通过调用Thread类的start()方法来启动一个线程，这时此线程处于就绪（可运行）状态，并没有运行，一旦得到cpu时间片，就开始执行run() 方法，这里方法 run()称为线程体，它包含了要执行的这个线程的内容，Run方法运行结束，此线程随即终止。<br>
+2） run：<br>
+　　 run()方法只是类的一个普通方法而已，如果直接调用Run方法，程序中依然只有主线程这一个线程，其程序执行路径还是只有一条，还是要顺序执行，还是 要等待run方法体执行完毕后才可继续执行下面的代码，这样就没有达到写线程的目的。总结：调用start方法方可启动线程，而run方法只是 thread的一个普通方法调用，还是在主线程里执行。这两个方法应该都比较熟悉，把需要并行处理的代码放在run()方法中，start()方法启动线程将自动调用 run()方法，这是由jvm的内存机制规定的。并且run()方法必须是public访问权限，返回值类型为void.。</p>
+<p>HashSet继承自AbstractSet</p>
+<p>我想知道 set   map   list都是继承自什么包括他们中包含的类都继承自什么</p>
+<p>java接口的修饰符可以是：final  abstract<br>
+接口的目的就是为了解决多重继承的问题。例如Fish类继承Animal类，表明Fish是一种动物，但鱼同样也是一种食物，如何表示这种关系呢？ 由于Java语言不支持一个类有多个直接的父类，因此无法用继承关系来描述鱼既是一种食物，又是一种动物，为了解决这一问题，Java语言引入接口类型，简称接口。一个类只能有一个直接的父类，但是可以实现多个接口。采用这种方式，Java语言对多继承提供了有力的支持。<br>
+接口是抽象类的另外一种形式， 抽象类抽象到极致就是接口，抽象类可存在有方法体的方法，接口中的方法全部为抽象方法；<br>
+接口中的所有方法均是抽象方法， 默认都是public、abstract类型的<br>
+public interface A {<br>
+void method1();//合法，默认为public、abstract类型<br>
+public abstract void method2();//合法，显示声明为public、abstract类型</p>
+<p>接口中的成员变量默认都是public, static, final类型，必须被显式初始化；<br>
+public interface A {<br>
+int CONST = 1;  //合法，CONST默认为public, static, final类型<br>
+public static final int OPAQUE = 1;  //合法，显示声明为public static final 类型<br>
+}</p>
+<p>接口中只能包含public, static, final类型成员变量和public、abstract类型的成员方法；<br>
+接口中没有构造方法，不能被实例化。<br>
+一个类只能继承一个直接的父类，但能实现多个接口。</p>
+<p>接口和抽象类的区别：<br>
+相同点：<br>
+都不能被实例化<br>
+都能包含抽象方法<br>
+不同点：<br>
+抽象类中可以为部分方法提供默认的实现，从而避免子类中重复实现他们，提高代码的可重用性，而接口中只能包含抽象的方法。<br>
+一个类只能继承一个直接的父类，这个父类可能是抽象类，但一个类可以实现多个接口，这是接口的优势所在</p>
+<p>总结：<br>
+抽象类里面放着经常被调用的代码。<br>
+接口的作用就是为了解决多重继承，也就是拓展功能。</p>
+<p>静态语句块、构造语句块（就是只有大括号的那块）以及构造函数的执行顺序<br>
+class HelloA {</p>
+<pre><code>public HelloA() {
+    System.out.println(&quot;HelloA&quot;);
+}
+
+{ System.out.println(&quot;I'm A class&quot;); }
+
+static { System.out.println(&quot;static A&quot;); }
+</code></pre>
+<p>}</p>
+<p>public class HelloB extends HelloA {<br>
+public HelloB() {<br>
+System.out.println(&quot;HelloB&quot;);<br>
+}</p>
+<pre><code>{ System.out.println(&quot;I'm B class&quot;); }
+
+static { System.out.println(&quot;static B&quot;); }
+
+public static void main(String[] args) { 
+</code></pre>
+<p>new HelloB();<br>
+　　 }</p>
+<p>}</p>
+<p>答案：<br>
+static A<br>
+static B<br>
+I'm A class<br>
+HelloA<br>
+I'm B class<br>
+HelloB</p>
+<p>对象的初始化顺序：<br>
+（1）类加载之后，按从上到下（从父类到子类）执行被static修饰的语句；<br>
+（2）当static语句执行完之后,再执行main方法；<br>
+（3）如果有语句new了自身的对象，将从上到下执行构造代码块、构造器（两者可以说绑定在一起）。<br>
+下面稍微修改下上面的代码，以便更清晰的说明情况：<br>
+class HelloA {</p>
+<pre><code>public HelloA() {
+    System.out.println(&quot;HelloA&quot;);
+}
+
+{ System.out.println(&quot;I'm A class&quot;); }
+
+static { System.out.println(&quot;static A&quot;); }
+</code></pre>
+<p>}</p>
+<p>public class HelloB extends HelloA {<br>
+public HelloB() {<br>
+System.out.println(&quot;HelloB&quot;);<br>
+}</p>
+<pre><code>{ System.out.println(&quot;I'm B class&quot;); }
+
+static { System.out.println(&quot;static B&quot;); }
+
+public static void main(String[] args) {
+
+    System.out.println(&quot;-------main start-------&quot;);
+    new HelloB();
+    new HelloB();
+    System.out.println(&quot;-------main end-------&quot;);
+}
+</code></pre>
+<p>}</p>
+<p>结果：<br>
+static A<br>
+static B<br>
+-------main start-------<br>
+I'm A class<br>
+HelloA<br>
+I'm B class<br>
+HelloB<br>
+I'm A class<br>
+HelloA<br>
+I'm B class<br>
+HelloB<br>
+-------main end-------</p>
+<p>考察多个catch语句块的执行顺序<br>
+public void getCustomerInfo() {</p>
+<pre><code>    try {
+
+        // do something that may cause an Exception
+
+    } catch (java.io.FileNotFoundException ex) {
+
+        System.out.print(&quot;FileNotFoundException!&quot;);
+
+    } catch (java.io.IOException ex) {
+
+        System.out.print(&quot;IOException!&quot;);
+
+    } catch (java.lang.Exception ex) {
+
+        System.out.print(&quot;Exception!&quot;);
+
+    }
+
+}
+</code></pre>
+<p>A IOException!<br>
+BIOException!Exception!<br>
+CFileNotFoundException!IOException!<br>
+DFileNotFoundException!IOException!Exception!<br>
+答案：A<br>
+解析：考察多个catch语句块的执行顺序。当用多个catch语句时，catch语句块在次序上有先后之分。从最前面的catch语句块依次先后进行异常类型匹配，这样如果父异常在子异常类之前，那么首先匹配的将是父异常类，子异常类将不会获得匹配的机会，也即子异常类型所在的catch语句块将是不可到达的语句。所以，一般将父类异常类即Exception老大放在catch语句块的最后一个。</p>
+<p>错误异常处理<br>
+26. 下列哪种异常是检查型异常，需要在编写程序时声明 （）<br>
+ANullPointerException        BClassCastException      CFileNotFoundException       D IndexOutOfBoundsException<br>
+解答：</p>
+<ol>
+<li>java.lang.Error: Throwable的子类，用于标记严重错误。合理的应用程序不应该去try/catch这种错误。绝大多数的错误都是非正常的，就根本不该出现的。<br>
+java.lang.Exception: Throwable的子类，用于指示一种合理的程序想去catch的条件。即它仅仅是一种程序运行条件，而非严重错误，并且鼓励用户程序去catch它。</li>
+<li>Error和RuntimeException 及其子类都是未检查的异常（unchecked exceptions），而所有其他的Exception类都是检查了的异常（checked exceptions）.<br>
+checked exceptions: 通常是从一个可以恢复的程序中抛出来的，并且最好能够从这种异常中使用程序恢复。比如FileNotFoundException, ParseException等。检查了的异常发生在编译阶段，必须要使用try…catch（或者throws）否则编译不通过。<br>
+unchecked exceptions: 通常是如果一切正常的话本不该发生的异常，但是的确发生了。发生在运行期，具有不确定性，主要是由于程序的逻辑问题所引起的。比如ArrayIndexOutOfBoundException, ClassCastException等。从语言本身的角度讲，程序不该去catch这类异常，虽然能够从诸如RuntimeException这样的异常中catch并恢复，但是并不鼓励终端程序员这么做，因为完全没要必要。因为这类错误本身就是bug，应该被修复，出现此类错误时程序就应该立即停止执行。 因此，面对Errors和unchecked exceptions应该让程序自动终止执行，程序员不该做诸如try/catch这样的事情，而是应该查明原因，修改代码逻辑。<br>
+RuntimeException：RuntimeException体系包括错误的类型转换、数组越界访问和试图访问空指针等等。<br>
+处理RuntimeException的原则是：如果出现 RuntimeException，那么一定是程序员的错误。例如，可以通过检查数组下标和数组边界来避免数组越界访问异常。其他（IOException等等）checked异常一般是外部错误，例如试图从文件尾后读取数据等，这并不是程序本身的错误，而是在应用环境中出现的外部错误。</li>
+</ol>
+<p>case中的Break:<br>
+下面的方法，当输入为2的时候返回值是多少?（）<br>
+public static int getValue(int i) {<br>
+int result = 0;<br>
+switch (i) {<br>
+case 1:<br>
+result = result + i;<br>
+case 2:<br>
+result = result + i * 2;<br>
+case 3:<br>
+result = result + i * 3;<br>
+}<br>
+return result;<br>
+}</p>
+<p>A0                    B2                    C4                     D10<br>
+解析：注意这里case后面没有加break，所以从case 2开始一直往下运行。</p>
+<p>父类与子类的构造函数调用次序<br>
+下面是People和Child类的定义和构造方法，每个构造方法都输出编号。在执行new Child(&quot;mike&quot;)的时候都有哪些构造方法被顺序调用？请选择输出结果 ( )<br>
+class People {<br>
+String name;</p>
+<pre><code>public People() {
+    System.out.print(1);
+}
+
+public People(String name) {
+    System.out.print(2);
+    this.name = name;
+}
+</code></pre>
+<p>}</p>
+<p>class Child extends People {<br>
+People father;</p>
+<pre><code>public Child(String name) {
+    System.out.print(3);
+    this.name = name;
+    father = new People(name + &quot;:F&quot;);
+}
+
+public Child() {
+    System.out.print(4);
+}
+</code></pre>
+<p>}</p>
+<p>A312              B 32               C 432              D 132<br>
+答案：D<br>
+解析：考察的又是父类与子类的构造函数调用次序。在Java中，子类的构造过程中必须调用其父类的构造函数，是因为有继承关系存在时，子类要把父类的内容继承下来。但如果父类有多个构造函数时，该如何选择调用呢？<br>
+第一个规则：子类的构造过程中，必须调用其父类的构造方法。一个类，如果我们不写构造方法，那么编译器会帮我们加上一个默认的构造方法（就是没有参数的构造方法），但是如果你自己写了构造方法，那么编译器就不会给你添加了，所以有时候当你new一个子类对象的时候，肯定调用了子类的构造方法，但是如果在子类构造方法中我们并没有显示的调用基类的构造方法，如：super();  这样就会调用父类没有参数的构造方法。<br>
+第二个规则：如果子类的构造方法中既没有显示的调用基类构造方法，而基类中又没有无参的构造方法，则编译出错，所以，通常我们需要显示的：super(参数列表)，来调用父类有参数的构造函数，此时无参的构造函数就不会被调用。<br>
+总之，一句话：子类没有显示调用父类构造函数，不管子类构造函数是否带参数都默认调用父类无参的构造函数，若父类没有则编译出错。<br>
+public class Dervied extends Base {</p>
+<pre><code>private String name = &quot;dervied&quot;;
+
+public Dervied() {
+    tellName();
+    printName();
+}
+
+public void tellName() {
+    System.out.println(&quot;Dervied tell name: &quot; + name);
+}
+
+public void printName() {
+    System.out.println(&quot;Dervied print name: &quot; + name);
+}
+
+public static void main(String[] args){
+    
+    new Dervied();    
+}
+</code></pre>
+<p>}</p>
+<p>class Base {</p>
+<pre><code>private String name = &quot;base&quot;;
+
+public Base() {
+    tellName();
+    printName();
+}
+
+public void tellName() {
+    System.out.println(&quot;Base tell name: &quot; + name);
+}
+
+public void printName() {
+    System.out.println(&quot;Base print name: &quot; + name);
+}
+</code></pre>
+<p>}</p>
+<p>扩展</p>
+<p>业务服务器每秒可以处理1000个请求，并向数据库进行写操作，现在要提升服务能力，使服务器每秒可以处理更多的请求，你会怎样解决这个问题？请尽量全面的考虑可能遇到的情况：<br>
+https://www.idcbest.com/jjfanews/11004238.html</p>
+<p>给定一个 query 和一个 text,均由小写字母组成。要求在 text 中找出以同样的顺序连 续出现在 query 中的最长连续字母序列的长度。例如, query 为“acbac”,text<br>
+package com.interview;</p>
+<p>import java.util.ArrayList;<br>
+import java.util.List;<br>
+import java.util.Set;<br>
+import java.util.regex.Matcher;<br>
+import java.util.regex.Pattern;</p>
+<p>/**</p>
+<ul>
+<li>给定一个 query 和一个 text,均由小写字母组成。</li>
+<li>要求在 text 中找出以同样的顺序连 续出现在 query 中的最长连续字母序列的长度。</li>
+<li>例如, query 为“acbac”,text 为 “acaccbabb”,那么 text 中的“cba”为</li>
+<li>最长的连续出现在 query 中的字母序列,因此, 返回结果应该为其长度 3。请注意程序效率。<br>
+*/</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>
+<p>刚开始思路有点偏，想要利用正则表达式，后来发现没有必要...<br>
+*/<br>
+public class Test2 {<br>
+public static void main(String[] args) {<br>
+String query = &quot;acbac&quot;;<br>
+String text = &quot;acaccbabb&quot;;<br>
+boolean b = false;<br>
+String result = &quot;&quot;;<br>
+List<String> list = new ArrayList&lt;&gt;();</p>
+<pre><code> //中心思想
+ //找到query的不同组合，然后看text中是否包含该组合就好
+ System.out.println(text.contains(&quot;cba&quot;));
+ //i是最长连续字母序列的长度
+ for (int i = query.length(); i &gt;= 1; i--) {
+     //组合数 j
+     int j = (query.length() + 1) - i;
+     //m是每个字符串的长度起点
+     for (int m = 0; m &lt; j; m++) {
+         String que = query.substring(m, m + i);
+         //用来加快速度，如果list里面包含有相同的字符串就跳过
+         if (list.contains(que)) {
+             continue;
+         }
+         //System.out.println(que);  //可以用来查看输出结果
+         if (text.contains(que)) {
+             result = que;
+             b = true;
+             break;
+         }
+         list.add(que);
+     }
+     if (b) {
+         break;
+     }
+ }
+ System.out.println(&quot;字符串为：&quot; + result);
+ System.out.println(&quot;长度为：&quot; + result.length());
+</code></pre>
+<p>}<br>
+}</p>
+</li>
+</ul>
+<p>如果有这样一个程序，有一个仓库类，他有一个仓库最大容积的变量和添加货物和取走货物的方法，并且有多个线程在操作这个这样一个仓库的对象，那么如何保证线程之间的协调呢？不至于满了还放，没了还拿。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ArrayList的扩容机制（摘抄）]]></title>
         <id>https://hashming.github.io/post/arraylist-de-kuo-rong-ji-zhi-zhai-chao</id>
