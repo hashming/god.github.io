@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://hashming.github.io</id>
     <title>阿鲤梨</title>
-    <updated>2019-12-23T15:10:26.234Z</updated>
+    <updated>2019-12-31T02:37:25.997Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://hashming.github.io"/>
     <link rel="self" href="https://hashming.github.io/atom.xml"/>
@@ -10,6 +10,111 @@
     <logo>https://hashming.github.io/images/avatar.png</logo>
     <icon>https://hashming.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 阿鲤梨</rights>
+    <entry>
+        <title type="html"><![CDATA[jdbc中的sql注入攻击防范]]></title>
+        <id>https://hashming.github.io/post/jdbc-zhong-de-sql-zhu-ru-gong-ji-fang-fan</id>
+        <link href="https://hashming.github.io/post/jdbc-zhong-de-sql-zhu-ru-gong-ji-fang-fan">
+        </link>
+        <updated>2019-12-31T02:23:14.000Z</updated>
+        <content type="html"><![CDATA[<p>原始代码：（还算是原始吧）</p>
+<pre><code class="language-java">package com.fuxi.test02_JDBC演示;
+import com.mysql.jdbc.Driver;
+import java.sql.*;
+import java.sql.SQLException;
+public class Test01 {
+    public static void main(String[] args) {
+        try {
+            DriverManager.registerDriver(new Driver());//注册驱动
+            Connection con = DriverManager.getConnection(&quot;jdbc:mysql:///duo66&quot;,&quot;root&quot;,&quot;root&quot;);//连接
+            Statement st = con.createStatement();//声明承载sql的类来操作数据库
+            String sql = &quot;select * from user&quot;;
+            ResultSet rs = st.executeQuery(sql);//
+            while(rs.next()){
+                int id = rs.getInt(&quot;id&quot;);
+                String name = rs.getString(&quot;name&quot;);
+                int age = rs.getInt(&quot;age&quot;);
+                System.out.println(id+&quot;;;;&quot;+name+&quot;;;;&quot;+age);
+            }
+            rs.close();
+            st.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>下面是我们已经优化后的代码：</p>
+<pre><code class="language-java">package com.fuxi.test05_SQL注入攻击的代码演示;
+import com.fuxi.utils.JDBCUtils2;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
+/*
+    为什么会出现SQL注入攻击问题?
+        用户录入的特殊符号或者关键字, 被我们的程序识别为: SQL语句中的符号或者关键字了, 导致我们SQL语句的结构发生了变化.
+
+        解决方案:
+            我们可以对我们的SQL语句进行: 预编译, 这样我们就确定了SQL语句的格式,
+            之后不管传入什么数据, 我们都是当做: 普通字符处理.
+
+ */
+public class Test02_问题解决 {
+    public static void main(String[] args) {
+        //1. 获取用户录入的用户名和密码
+        Scanner sc = new Scanner(System.in);
+        System.out.println(&quot;请录入您的用户名: &quot;);
+        String uname = sc.nextLine();
+
+        System.out.println(&quot;请录入您的密码: &quot;);
+        String pw = sc.nextLine();
+
+        //2. 判断该数据是否存在, 存在提示登录成功, 不存在提示登录失败
+        Connection conn = null;
+        //Statement stat = null;        //没有预编译功能
+        PreparedStatement ps = null;    //具有预编译功能
+        ResultSet rs = null;
+
+        try {
+            conn = JDBCUtils2.getConnection();
+            //4 ?:占位符, 不管传入什么数据, 都只会当做普通字符处理.
+            String sql = &quot;select * from users where username=? and password=? ;&quot;;
+            ps = conn.prepareStatement(sql);
+
+            //给占位符设置值.
+            ps.setString(1, uname);
+            ps.setString(2, pw);
+            //5
+            rs = ps.executeQuery();      //这里不能传入SQL语句, 因为已经预编译过了.
+            //6
+            /*if (rs.next()) {  //判断结果集中是否有数据
+                System.out.println(&quot;登录成功&quot;);
+            } else{
+                System.out.println(&quot;登录失败&quot;);
+            }*/
+            System.out.println(rs.next()? &quot;登录成功&quot; : &quot;用户名或者密码错误&quot;);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            //7
+            //个人建议: 开发中只要是操作对象, 先做不为null校验.
+            //Properties类, load(), store()
+            JDBCUtils2.release(conn,ps, rs);
+        }
+
+    }
+}          JDBCUtils2.release(conn,ps, rs);
+        }
+
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[记一次g企业面试]]></title>
         <id>https://hashming.github.io/post/ji-yi-ci-g-qi-ye-mian-shi</id>
