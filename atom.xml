@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://hashming.github.io</id>
     <title>阿鲤梨</title>
-    <updated>2020-02-28T04:32:46.006Z</updated>
+    <updated>2020-02-28T09:42:07.004Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://hashming.github.io"/>
     <link rel="self" href="https://hashming.github.io/atom.xml"/>
@@ -10,6 +10,81 @@
     <logo>https://hashming.github.io/images/avatar.png</logo>
     <icon>https://hashming.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 阿鲤梨</rights>
+    <entry>
+        <title type="html"><![CDATA[品优购项目开发中我遇到的比较棘手的问题]]></title>
+        <id>https://hashming.github.io/post/pin-you-gou-xiang-mu-kai-fa-zhong-wo-yu-dao-de-bi-jiao-ji-shou-de-wen-ti</id>
+        <link href="https://hashming.github.io/post/pin-you-gou-xiang-mu-kai-fa-zhong-wo-yu-dao-de-bi-jiao-ji-shou-de-wen-ti">
+        </link>
+        <updated>2020-02-28T07:11:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="1-需求不明确困境">1. 需求不明确困境</h1>
+<p>在项目开发中，项目采用迭代开发，开发需求不是很明确，对于项目开发初期来说非常困难，进度非常慢，有时开发的出的产品结果往往不能令老板满意，或者是甲方满意，项目还需要不停的迭代，修改。</p>
+<blockquote>
+<p>比如说：<br>
+在开发品优购项目的时候，客户定位是一个综合性的商务平台，可以实现在线第三方商家对接，实现商品的销售但是并没有明确的需求，因此开发全凭借电商的项目经验来实现里面的相关的业务，后期慢慢迭代。</p>
+</blockquote>
+<h1 id="2-使用-cas-单独登录不能很好实现想要的效果">2. 使用 cas 单独登录不能很好实现想要的效果</h1>
+<h1 id="3-solr高亮不能显示">3. solr高亮不能显示</h1>
+<p><strong>问题原因</strong>：angularJS 底层使用 ajax，异步加载高亮信息返回给页面后，页面没有刷新，就直接显示返回的数据。此时会把所有的数据作为普通的文本数据进行加载。因此就没有高亮的效果。<br>
+<strong>解决方案</strong>：使用 angularJS 过滤器过滤文本数据，此时 angularJS 过滤器把 html 文本数据解析为浏览器能识别的 html 标签。高亮就能展示了。</p>
+<h1 id="4-nginx-静态页面服务跳转到购物车跨域问题">4. Nginx 静态页面服务跳转到购物车跨域问题</h1>
+<p>在 Nginx 中部署了静态页面，添加购物车时必须从静态页面跳转到购物车系统,实现购物车添加操作。由于在静态页面中使用 angularJS 实现的跳转，发现跳转到购物车系统完全没有问题，但是并不能跳转回到购物车系统页面。<br>
+<strong>问题原因</strong>：从静态详情系统跳转到购物车系统，会存在跨域问题，因此不能进行回调函数的数据传递。所以在回调函数中的页面跳转就不能实现。<br>
+<strong>解决方案</strong>：使用 angularJS 跨域调用及 springmvc 跨域配置，解决问题。</p>
+<h1 id="5-activemq-存在运行时间长了以后收不到消息的现象时间长了就会出现卡死新的数据不能从队列接听到-只能重启程序">5. activeMQ 存在运行时间长了以后，收不到消息的现象时间长了就会出现，卡死，新的数据不能从队列接听到。只能重启程序。</h1>
+<p><strong>解决方案</strong>：🤗</p>
+<ol>
+<li>不要频繁的建立和关闭连接</li>
+</ol>
+<blockquote>
+<p>JMS 使用长连接方式，一个程序，只要和 JMS 服务器保持一个连接就可以了，不要频繁的建立和关闭连接。频繁的建立和关闭连接，对程序的性能影响还是很大的。这一点和 jdbc 还是不太一样的。</p>
+</blockquote>
+<ol start="2">
+<li>Connection 的 start()和 stop()方法代价很高</li>
+</ol>
+<blockquote>
+<p>JMS 的 Connection 的 start()和 stop()方法代价很高，不能经常调用。我们试用的时候，写了个 jms 的 connection pool，每次将 connection 取出 pool 时调用 start()方法，归还时调用 stop()方法，然而后来用 jprofiler发现，一般的 cpu 时间都耗在了这两个方法上。</p>
+</blockquote>
+<ol start="3">
+<li>start()后才能收消息</li>
+</ol>
+<blockquote>
+<p>Connection 的 start()方法调用后，才能收到 jms 消息。如果不调用这个方法，能发出消息，但是一直收不到消息。不知道其它的 jms 服务器也是这样</p>
+</blockquote>
+<ol start="4">
+<li>显式关闭 Session</li>
+</ol>
+<blockquote>
+<p>如果忘记了最后关闭 Connection 或 Session 对象，都会导致内存泄漏。这个在我测试的时候也发现了。本来以为关闭了 Connection，由这个Connection 生成的 Session 也会被自动关闭，结果并非如此，Session 并没有关闭，导致内存泄漏。所以一定要显式的关闭 Connection 和 Session。</p>
+</blockquote>
+<ol start="5">
+<li>对 Session 做对象池</li>
+</ol>
+<blockquote>
+<p>对 Session 做对象池，而不是 Connection。Session 也是昂贵的对象，每次使用都新建和关闭，代价也非常高。而且后来我们发现，原来 Connection是线程安全的，而 Session 不是，所以后来改成了对 Session 做对象池，而只保留一个 Connection。</p>
+</blockquote>
+<ol start="6">
+<li>集群</li>
+</ol>
+<blockquote>
+<p>ActiveMQ 有强大而灵活的集群功能，但是使用起来还是会有很多陷阱</p>
+</blockquote>
+<h1 id="6-activemq-存在发生消息太大造成消息接受不成功">6. activeMQ 存在发生消息太大，造成消息接受不成功</h1>
+<p>多个线程从 activeMQ 中取消息，随着业务的扩大，该机器占用的网络带宽越来越高。仔细分析发现，mq 入队时并没有异常高的网络流量，仅仅在出队时会产生很高的网络流量。<br>
+<strong>问题原因</strong>：<br>
+<strong>最终发现是 spring的 的 jmsTemplate与 与 activemq的 的 prefetch 机制配合导致的问题</strong><br>
+<em>研究源码发现 jmsTemplate实现机制是：每次调用 receive()时都会创建一个新的consumer 对象，用完即销毁。</em><br>
+正常情况下仅仅会浪费重复创建 consumer 的资源代价，并不至于产生正常情况十倍百倍的网络流量。但是 activeMQ 有一个提高性能的机制 prefetch，此时就会有严重的问题。<br>
+<strong>prefetch 机制:</strong><br>
+每次 consumer 连接至 MQ 时，MQ 预先存放许多message 到消费者（前提是 MQ 中存在大量消息），预先存 放message的数量取决于prefetchSize（默认为 1000）。此机制的目的很显然，是想让客户端代码用一个 consumer 反复进行 receive操作，这样能够大量提高出队性能。此机制与jmsTemplate 配合时就会产生严重的问题，每次 jmsTemplate.receive()，都会产生 1000个消息的网络流量， 但是因为jmsTemplae并不会重用 consumer，导致后面 999 个消息都被废弃。反复jmsTemplate.receive()时，表面上看 不出任何问题，其实网络带宽会造成大量的浪费。<br>
+<strong>解决方案</strong>：</p>
+<ol>
+<li>若坚持使用 jmsTemplate，需要设置prefetch值为 1，相当于禁用了 activeMQ 的prefetch 机制，此时感觉最健壮， 就算多线程，反复调用 jmsTemplate.receive()也不会有任何问题。但是会有资源浪费，因为要反复创建 consumer 并频繁与服务器进 行数据通信，但在性能要求不高的应用中也不算什么问题。</li>
+<li>不使用 jmsTemplate，手工创建一个consumer，并单线程反复使用它来 receive()，此时可以充分利用 prefetch 机制。配合多线程的方式每个线程拥有自己的一个 consumer，此时能够充分发挥 MQ在大吞吐量时的速度优势。</li>
+</ol>
+<p>切记避免多线程使用一个 consumer 造成的消息混乱。大吞吐量的应用推荐使用方案 2，能够充分利用<br>
+prefetch 机制提高系 MQ 的吞吐性能。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[SpringMVC之架构与工作流程]]></title>
         <id>https://hashming.github.io/post/springmvc-zhi-jia-gou-yu-gong-zuo-liu-cheng</id>
