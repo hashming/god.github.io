@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://hashming.github.io</id>
     <title>阿鲤梨</title>
-    <updated>2020-02-28T09:42:07.004Z</updated>
+    <updated>2020-05-12T07:46:32.845Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://hashming.github.io"/>
     <link rel="self" href="https://hashming.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://hashming.github.io/images/avatar.png</logo>
     <icon>https://hashming.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 阿鲤梨</rights>
+    <entry>
+        <title type="html"><![CDATA[java中的异常类]]></title>
+        <id>https://hashming.github.io/post/java-zhong-de-yi-chang-lei</id>
+        <link href="https://hashming.github.io/post/java-zhong-de-yi-chang-lei">
+        </link>
+        <updated>2020-05-12T07:31:52.000Z</updated>
+        <content type="html"><![CDATA[<!-- 什么是分隔符呀 -->
+<h3 id="第一张图是穆图">第一张图是穆图：</h3>
+<figure data-type="image" tabindex="1"><img src="http://img.wwery.com/hashming/5fdd20512033511.png" alt="hashming/5fdd20512033511.png" loading="lazy"></figure>
+<h3 id="第二张图有检查型异常和非检查型异常">第二张图有检查型异常和非检查型异常：</h3>
+<figure data-type="image" tabindex="2"><img src="http://img.wwery.com/hashming/1bedd0512033732.png" alt="hashming/1bedd0512033732.png" loading="lazy"></figure>
+<p>从图中可以看出来RuntimeException中的IoException的子类就是检查型异常。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[品优购项目开发中我遇到的比较棘手的问题]]></title>
         <id>https://hashming.github.io/post/pin-you-gou-xiang-mu-kai-fa-zhong-wo-yu-dao-de-bi-jiao-ji-shou-de-wen-ti</id>
